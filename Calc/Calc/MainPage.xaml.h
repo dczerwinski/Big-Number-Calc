@@ -32,6 +32,15 @@ namespace Calc
 		void Button_Click_3(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 		void Button_Click_result(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 		Platform::String^ current_display;
+		std::wstring arg1;
+		std::wstring arg2;
+		char action;
+		char prev_action;
 		void Update_TB_result();
+		void calculate();
+		void add();
+		void sub();
+		
+		
 	};
 }

@@ -10,7 +10,7 @@
 
     <Grid>
 
-        <Button Content="7" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="32,138,0,0" RenderTransformOrigin="-0.308,-0.125" Height="100" Width="100" Click="Button_Click_7"/>
+        <Button Content="7" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="32,138,0,0" RenderTransformOrigin="-0.308,-0.125" Height="100" Width="100" Click="Button_Click_7" AutomationProperties.AcceleratorKey="7"/>
         <Button Content="8" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="142,138,0,0" RenderTransformOrigin="-0.308,-0.125" Height="100" Width="100" Click="Button_Click_8"/>
         <Button Content="9" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="252,138,0,0" RenderTransformOrigin="-0.308,-0.125" Height="100" Width="100" Click="Button_Click_9"/>
         <Button Content="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="142,357,0,0" RenderTransformOrigin="-0.308,-0.125" Height="100" Width="100" Click="Button_Click_2"/>
@@ -24,6 +24,6 @@
         <Button Content="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="32,357,0,0" RenderTransformOrigin="-0.308,-0.125" Height="100" Width="100" Click="Button_Click_1"/>
         <Button Content="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="142,466,0,0" RenderTransformOrigin="-0.308,-0.125" Height="100" Width="100" Click="Button_Click_0" />
         <TextBox x:Name="TB_result" HorizontalAlignment="Left" Margin="32,10,0,0" Text="TextBox" VerticalAlignment="Top" Height="100" Width="466" FontSize="16" TextAlignment="Center"/>
-
+        
     </Grid>
 </Page>
