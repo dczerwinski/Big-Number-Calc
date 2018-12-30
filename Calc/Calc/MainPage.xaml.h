@@ -35,9 +35,8 @@ namespace Calc
 		std::wstring arg1;
 		std::wstring arg2;
 		char action;
-		char prev_action;
+		void do_calc();
 		void Update_TB_result();
-		void calculate();
 		void add();
 		void sub();
 		

@@ -34,7 +34,7 @@ MainPage::MainPage()
 	arg1 =L"e";
 	arg2 = L"e";
 	action = 'e';
-	prev_action = 'e';
+	
 }
 
 
@@ -110,19 +110,21 @@ void Calc::MainPage::Button_Click_3(Platform::Object^ sender, Windows::UI::Xaml:
 
 void Calc::MainPage::Button_Click_result(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-	auto temp = current_display->Begin();
-	arg1 = temp;
-	add();
-	Update_TB_result();
+	do_calc();
+	this->current_display = ref new String(std::wstring(L"0").c_str());
+	arg2 = L'e';
+	arg1 = L'e';
+	action = 'e';
 }
 
 void Calc::MainPage::Button_Click_plus(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-	//if(arg2!=L"e")
+	if (action != 'e')do_calc();
+	current_display = this->TB_result->Text;
 	auto temp = current_display->Begin();
-	arg2 = temp;
-	std::wstring temp2 = L"0";
-	this->current_display = ref new String(temp2.c_str());
+	arg1 = temp;
+	this->current_display = ref new String(std::wstring(L"0").c_str());
+	action = '+';
 	Update_TB_result();
 }
 
@@ -130,6 +132,27 @@ void Calc::MainPage::Button_Click_plus(Platform::Object^ sender, Windows::UI::Xa
 void Calc::MainPage::Button_Click_minus(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
 	throw ref new Platform::NotImplementedException();
+}
+
+void Calc::MainPage::do_calc()
+{
+	switch (action)
+	{
+	case '+':
+	{
+		current_display = this->TB_result->Text;
+		auto temp = current_display->Begin();
+		arg2 = temp;
+		add();
+		Update_TB_result();
+		arg2 = L'e';
+		arg1 = L'e';
+		action = 'e';
+	}
+		break;
+	default:
+		break;
+	}
 }
 
 void Calc::MainPage::Update_TB_result()
@@ -147,40 +170,41 @@ void Calc::MainPage::Update_TB_result()
 
 void Calc::MainPage::add()
 {
-	int rest = 0;
-	int min_len = min(arg1.length(), arg2.length());
-	int max_len = max(arg1.length(), arg2.length());
+	if (arg1 == L"e" || arg2 == L"e")throw ref new Platform::NotImplementedException();
+
+
+	while (arg1.length() < arg2.length())
+		arg1.insert(0, L"0");
+
+	while (arg2.length() < arg1.length())
+		arg2.insert(0, L"0");
+
+
 	std::wstring temp_result=L"";
 	std::reverse(arg1.begin(), arg1.end());
 	std::reverse(arg2.begin(), arg2.end());
 
-	for (int i = 0; i <min_len; i++) 
+	int temp = 0;
+	int rest = 0;
+	for (int i = 0; i <arg1.length(); i++) 
 	{
-		int temp = arg1[i]-'0'+arg2[i]-'0'+rest;
-		rest = (temp > 9) ? 1 : 0;
-		temp = (temp > 9) ? temp - 10 : temp;
-		temp_result += wchar_t(temp+'0');
-	}
-	std::wstring temp2;
-	if (arg1.length() > arg2.length())temp2 = arg1;
-	if (arg1.length() < arg2.length())temp2 = arg2;
-
-	for (int i = min_len; i < max_len; i++)
-	{
-		int temp = temp2[i]-'0';
-		temp = temp + rest;
+		temp = arg1[i]-'0'+arg2[i]-'0'+rest;
+		rest = 0;
 		if (temp > 9)
 		{
-			rest = 1; 
-			temp = temp - 10;
+			rest = temp / 10;
+			temp = temp % 10;
 		}
-		temp_result += wchar_t(temp + '0');
+		temp_result += wchar_t(temp+'0');
 	}
+	
+	if(rest !=0)temp_result += wchar_t(rest + '0');
 
-	temp_result += wchar_t(rest + '0');
 	std::reverse(temp_result.begin(), temp_result.end());
+
 	this->current_display = ref new String(temp_result.c_str());
 }
+
 
 void Calc::MainPage::sub()
 {
